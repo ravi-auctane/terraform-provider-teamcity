@@ -44,5 +44,6 @@ resource "teamcity_artifact_dependency" "buildrelease_schedule_trigger" {
   #Instructs to clean the destination paths (configured with path_rules) before downloading artifacts from the source build
   #Optional
   #Default: false
+  #Comment Test
   clean_destination = true
 }
