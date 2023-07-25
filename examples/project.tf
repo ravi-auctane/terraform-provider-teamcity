@@ -3,7 +3,7 @@ resource "teamcity_project" "parent" {
     description = "Parent Project, will be created under the 'Root' project"
 }
 
-#TEST COMMENTS
+#TEST COMMENTS 1
 resource "teamcity_project" "child" {
     name = "Child"
     description = "Child Project, will be created under 'Parent' project"
