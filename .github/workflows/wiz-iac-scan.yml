@@ -1,4 +1,4 @@
-name: 'wiz-cli-scan'
+name: 'wiz-cli'
 on: [pull_request]
 
 jobs:
@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SCAN_PATH: "." # Set the relative path in the repo to scan
-      POLICY: "Default IaC policy" # Set the desired Wiz-cli policy to use
+      POLICY1: "Auctane IaC policy" # Set the desired Wiz CLI policy to use
+      POLICY2: "Auctane vulnerabilities policy"
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -19,7 +20,7 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
-    - name: Download Wiz-cli
+    - name: Download Wiz CLI
       run: curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli
 
     - name: Authenticate to Wiz
@@ -28,5 +29,7 @@ jobs:
         WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
         WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
-    - name: Run wiz-cli IaC scan
-      run: ./wizcli iac scan --path $SCAN_PATH --policy "$POLICY"
+    - name: Run wiz CLI IaC scan
+      run: ./wizcli iac scan --path $SCAN_PATH --policy "$POLICY1" --policy "$POLICY2" --name "InfoSec-${GITHUB_REPOSITORY#*/}-${GITHUB_SHA:0:7}"
+      # In the run command, you can observe that the name of the report can be declared. As an example:
+      # We have "InfoSec" as team name, ${GITHUB_REPOSITORY#*/} gives the repository name and ${GITHUB_SHA:0:7} gives the commit SHA
