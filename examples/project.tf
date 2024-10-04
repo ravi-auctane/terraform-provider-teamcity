@@ -1,6 +1,6 @@
 resource "teamcity_project" "parent" {
     name = "Parent"
-    description = "Parent Project, will be created under the 'Root' project"
+    description = "Parent Project, will be created under the 'Root' project1"
 }
 
 resource "teamcity_project" "child" {
